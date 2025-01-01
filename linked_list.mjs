@@ -30,21 +30,19 @@ class LinkedList {
 
   // if a separate head and tail are defined then link head and tail
   // if no data is entered set head and tail to null
-  constructor(head, tail) {
-    this.head = head;
-    this.tail = tail;
-
-    this.head.nextNode = tail;
-    this.size = 2; // change this later
+  constructor() {
+    this.head = null;
+    this.tail = null;
   }
 
   // seems to be working
   // TODO: check if the linked list is empty
   append(value) {
     const newNode = new Node(value);
-    if (this.size == 0) {
+    if (this.head == null) {
       this.head = newNode;
       this.tail = newNode;
+      this.head.nextNode = newNode;
       this.size++;
     } else {
       this.tail.nextNode = newNode;
@@ -58,9 +56,11 @@ class LinkedList {
   prepend(value) {
     const newNode = new Node(value);
 
-    if (this.size == 0) {
+    if (this.head == null) {
       this.head = newNode;
       this.tail = newNode;
+      this.head.nextNode = newNode;
+      this.size++;
     } else {
       newNode.nextNode = this.head;
       this.head = newNode;
@@ -100,7 +100,6 @@ class LinkedList {
     let currentNode = this.head; // linearly traversing from head to to index
 
     for (let i = 1; i < index + 1; i++) {
-      console.log("current node", currentNode);
       currentNode = currentNode.nextNode;
     }
     return currentNode;
@@ -143,7 +142,7 @@ class LinkedList {
   // returns the index of the value, or null if not found
   find(value) {
     if (this.head.value === value) {
-      return index;
+      return 0;
     }
 
     if (this.tail.value === value) {
@@ -180,7 +179,12 @@ class LinkedList {
   removeAt(index) {}
 }
 
-let ll = new LinkedList(new Node(0), new Node(1));
+let ll = new LinkedList();
+
+ll.prepend(1);
+ll.prepend(0);
+console.log(ll.at(0));
+console.log(ll.at(1));
 
 // index 0 = 0, index 1 = 1, index 2 = 4, index 3 = 12
 ll.append(4);
